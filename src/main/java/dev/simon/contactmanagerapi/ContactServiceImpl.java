@@ -34,5 +34,10 @@ public class ContactServiceImpl implements ContactService {
         return contact;
     }
 
+    @Override
+    public Optional<Contact> searchContactByFirstName(String firstName) {
+        return contactRepository.searchContactByFirstName(firstName);
+    }
+
 
 }

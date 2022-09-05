@@ -24,4 +24,7 @@ public class ContactRepository {
         return contact;
     }
 
+    public Optional<Contact> searchContactByFirstName(String firstName) {
+        return contacts.stream().filter(contact -> firstName.equals(contact.getFirstName())).findFirst();
+    }
 }

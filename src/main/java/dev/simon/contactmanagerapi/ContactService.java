@@ -7,4 +7,5 @@ public interface ContactService {
     List<Contact> getContacts();
     Optional<Contact> getContactById(String id);
     Contact saveContact(Contact contact);
+    Optional<Contact> searchContactByFirstName(String firstName);
 }
