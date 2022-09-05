@@ -29,7 +29,9 @@ jobs:
         run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ steps.get-image-name.outputs.image_name }}
         
       - name: Login to Docker Hub
-        run: docker login -u simonpic -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: echo $DOCKER_HUB_TOKEN | docker login -u simonpic --password-stdin
+        env:
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         
       - name: Push image to registry
         run: docker push ${{ steps.get-image-name.outputs.image_name }}
