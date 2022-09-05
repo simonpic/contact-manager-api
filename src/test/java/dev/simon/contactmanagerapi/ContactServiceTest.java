@@ -40,4 +40,9 @@ public class ContactServiceTest {
         assertThat(contactOpt).isEmpty();
     }
 
+    @Test
+    public void failingTest() {
+        assertThat(1).isEqualTo(2);
+    }
+
 }
