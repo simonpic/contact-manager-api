@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  DOCKER_REPOSITORY: simonpic/contact-manager-api
+
 jobs:
   build-and-release-image:
     runs-on: ubuntu-latest
@@ -16,9 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: maven
-      - name: Resolve image tag
-        run: |
-          echo "image_tag=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
-          echo "Image tag: ${{ env.image_tag }}"
+      - name: Get image name
+        run: echo ::set-output name=image_name::$DOCKER_REPOSITORY:$(git rev-parse --short "$GITHUB_SHA")
+        id: get-image-name
       - name: Build image
-        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=contact-manager-api:${{ env.image_tag }}
+        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=${{ steps.get-image-name.outputs.image_name }}
